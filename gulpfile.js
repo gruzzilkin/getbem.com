@@ -58,10 +58,6 @@ gulp.task('html', ['clean'], function () {
 
 });
 
-gulp.task('cname', ['clean'], function () {
-    return gulp.src('CNAME').pipe(gulp.dest('dist'));
-});
-
 gulp.task('assets', ['clean'], function () {
     return gulp.src('assets/**').pipe(gulp.dest('dist'));
 });
@@ -70,7 +66,7 @@ gulp.task('clean', function (cb) {
     del(['./dist'], cb);
 });
 
-gulp.task('build', ['clean', 'html', 'css', 'js', 'assets', 'cname']);
+gulp.task('build', ['clean', 'html', 'css', 'js', 'assets']);
 
 /* Some external tasks */
 require('./gulpfile.ext.js');
