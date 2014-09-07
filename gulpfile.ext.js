@@ -4,7 +4,7 @@ var watch = require('gulp-watch');
 
 gulp.task('watch', ['build'], function() {
     return watch([
-        '{blocks,pages}/**/*.deps.js',
+        '{blocks,pages}/**/*.js',
         '{blocks,pages}/**/*.css',
         '{blocks,pages}/**/*.jade',
         '{blocks,pages}/**/*.md'

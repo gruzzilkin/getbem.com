@@ -3,16 +3,18 @@ var plumber = require('gulp-plumber');
 var concat = require('gulp-concat');
 var jade = require('gulp-jade');
 var flatten = require('gulp-flatten');
+var bempack = require('gulp-bem-pack');
 
 var del = require('del');
+var browserify = require('gulp-browserify');
 var through = require('through2');
 var glue = require('glue-streams');
 var save = require('save-stream');
 var join = require('path').join;
 
 var levels = [
-        'libs/pure-base',
-        'libs/pure-grids',
+        'libs/pure-base/base',
+        'libs/pure-grids/grid',
         'blocks'
     ],
     bundles = ['pages'],
@@ -28,7 +30,7 @@ var levels = [
 
 gulp.task('js', ['clean'], function () {
     return gulp.src(levels.map(postfixJS))
-        .pipe(concat('index.js'))
+        .pipe(bempack('index.js'))
         .pipe(gulp.dest('./dist'));
 });
 
