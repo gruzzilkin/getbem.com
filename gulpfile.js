@@ -1,50 +1,61 @@
 var gulp = require('gulp');
-var bem = require('gulp-bem');
 var plumber = require('gulp-plumber');
 var concat = require('gulp-concat');
-var del = require('del');
 var jade = require('gulp-jade');
-var pack = require('gulp-bem-pack');
-var save = require('save-stream');
-var glue = require('glue-streams');
+var flatten = require('gulp-flatten');
+
+var del = require('del');
 var through = require('through2');
+var glue = require('glue-streams');
+var save = require('save-stream');
+var join = require('path').join;
 
 var levels = [
-    'libs/pure-base',
-    'libs/pure-grids',
-    'blocks'
-];
+        'libs/pure-base',
+        'libs/pure-grids',
+        'blocks'
+    ],
+    bundles = ['pages'],
+    postfixCSS = function (item) {
+        return join(item, '**/*.css')
+    },
+    postfixJS = function (item) {
+        return join(item, '**/*.js')
+    },
+    postfixHTML = function (item) {
+        return join(item, '**/*.jade')
+    };
 
 gulp.task('js', ['clean'], function () {
-    return glue.obj(bem.objects(levels), bem.objects('pages'))
-        .pipe(bem.src('{bem}.js'))
-        .pipe(pack('index.js'))
+    return gulp.src(levels.map(postfixJS))
+        .pipe(concat('index.js'))
         .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('css', ['clean'], function () {
-    return bem.objects(levels)
-        .pipe(bem.src('{bem}.css'))
+    return gulp.src(levels.map(postfixCSS))
         .pipe(concat('index.css'))
         .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('html', ['clean'], function () {
-    var mixins = bem.objects(levels)
-        .pipe(bem.src('{bem}.jade'))
-        .pipe(save());
+    var mixins = gulp.src(levels.map(postfixHTML))
+        .pipe(save()
+    );
 
-    return bem.objects('pages')
-        .pipe(bem.src('{bem}.jade'))
+    return gulp.src(bundles.map(postfixHTML))
         .pipe(through.obj(function (page, enc, cb) {
             return glue.obj(mixins.load(), page)
                 .pipe(concat(page))
                 .pipe(plumber())
                 .pipe(jade({pretty: true}))
+                .pipe(flatten())
                 .pipe(gulp.dest('./dist'))
                 .on('error', cb)
                 .on('end', cb);
-        }));
+        }))
+        .pipe(gulp.dest('./dist'));
+
 });
 
 gulp.task('cname', ['clean'], function () {
