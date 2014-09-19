@@ -4,6 +4,7 @@ var concat = require('gulp-concat');
 var jade = require('gulp-jade');
 var flatten = require('gulp-flatten');
 var bempack = require('gulp-bem-pack');
+var addsrc = require('gulp-add-src');
 
 var del = require('del');
 var through = require('through2');
@@ -36,12 +37,14 @@ var levels = [
 
 gulp.task('js', ['clean'], function () {
     return gulp.src(levels.map(postfixJS))
+        .pipe(addsrc(bundles.map(postfixJS)))
         .pipe(bempack('index.js'))
         .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('css', ['clean'], function () {
     return gulp.src(levels.map(postfixCSS))
+        .pipe(addsrc(bundles.map(postfixCSS)))
         .pipe(concat('index.css'))
         .pipe(gulp.dest('./dist'));
 });
