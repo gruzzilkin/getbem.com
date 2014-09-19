@@ -1,13 +1,15 @@
 var gulp = require('gulp');
-var bem = require('gulp-bem');
 var plumber = require('gulp-plumber');
 var concat = require('gulp-concat');
-var del = require('del');
 var jade = require('gulp-jade');
-var pack = require('gulp-bem-pack');
-var save = require('save-stream');
-var glue = require('glue-streams');
+var flatten = require('gulp-flatten');
+var bempack = require('gulp-bem-pack');
+var addsrc = require('gulp-add-src');
+
+var del = require('del');
 var through = require('through2');
+var glue = require('glue-streams');
+var save = require('save-stream');
 var join = require('path').join;
 
 function getCssFiles(bemObject) {
@@ -15,56 +17,56 @@ function getCssFiles(bemObject) {
 }
 
 var levels = [
-    'libs/bootstrap/levels/normalize',
-    'libs/bootstrap/levels/print',
-    'libs/bootstrap/levels/glyphicons',
-    'libs/bootstrap/levels/scaffolding',
-    'libs/bootstrap/levels/core-css',
-    'blocks'
-];
+		'libs/bootstrap/levels/normalize',
+		'libs/bootstrap/levels/print',
+		'libs/bootstrap/levels/glyphicons',
+		'libs/bootstrap/levels/scaffolding',
+		'libs/bootstrap/levels/core-css',
+		'blocks'
+	],
+    bundles = ['pages'],
+    postfixCSS = function (item) {
+        return join(item, '**/*.css')
+    },
+    postfixJS = function (item) {
+        return join(item, '**/*.js')
+    },
+    postfixHTML = function (item) {
+        return join(item, '**/*.jade')
+    };
 
 gulp.task('js', ['clean'], function () {
-    return glue.obj(bem.objects(levels), bem.objects('pages'))
-        .pipe(bem.src('{bem}.js'))
-        .pipe(pack('index.js'))
+    return gulp.src(levels.map(postfixJS))
+        .pipe(addsrc(bundles.map(postfixJS)))
+        .pipe(bempack('index.js'))
         .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('css', ['clean'], function () {
-    var levelsCss = bem.objects(levels)
-        .pipe(bem.src('{bem}.css'))
-        .pipe(save());
-
-    return bem.objects('pages')
-        .pipe(through.obj(function (obj, enc, cb) {
-            return glue.obj(levelsCss.load(), getCssFiles(obj))
-                .pipe(concat(obj.id + '.css'))
-                .pipe(gulp.dest('./dist'))
-                .on('error', cb)
-                .on('end', cb);
-        }));
+    return gulp.src(levels.map(postfixCSS))
+        .pipe(addsrc(bundles.map(postfixCSS)))
+        .pipe(concat('index.css'))
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('html', ['clean'], function () {
-    var mixins = bem.objects(levels)
-        .pipe(bem.src('{bem}.jade'))
-        .pipe(save());
+    var mixins = gulp.src(levels.map(postfixHTML))
+        .pipe(save()
+    );
 
-    return bem.objects('pages')
-        .pipe(bem.src('{bem}.jade'))
+    return gulp.src(bundles.map(postfixHTML))
         .pipe(through.obj(function (page, enc, cb) {
             return glue.obj(mixins.load(), page)
                 .pipe(concat(page))
                 .pipe(plumber())
                 .pipe(jade({pretty: true}))
+                .pipe(flatten())
                 .pipe(gulp.dest('./dist'))
                 .on('error', cb)
                 .on('end', cb);
-        }));
-});
+        }))
+        .pipe(gulp.dest('./dist'));
 
-gulp.task('cname', ['clean'], function () {
-    return gulp.src('CNAME').pipe(gulp.dest('dist'));
 });
 
 gulp.task('assets', ['clean'], function () {
@@ -75,7 +77,7 @@ gulp.task('clean', function (cb) {
     del(['./dist'], cb);
 });
 
-gulp.task('build', ['clean', 'html', 'css', 'js', 'assets', 'cname']);
+gulp.task('build', ['clean', 'html', 'css', 'js', 'assets']);
 
 /* Some external tasks */
 require('./gulpfile.ext.js');

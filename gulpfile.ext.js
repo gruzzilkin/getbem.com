@@ -4,7 +4,7 @@ var watch = require('gulp-watch');
 
 gulp.task('watch', ['build'], function() {
     return watch([
-        '{blocks,pages}/**/*.deps.js',
+        '{blocks,pages}/**/*.js',
         '{blocks,pages}/**/*.css',
         '{blocks,pages}/**/*.jade',
         '{blocks,pages}/**/*.md'
@@ -14,7 +14,7 @@ gulp.task('watch', ['build'], function() {
 });
 
 gulp.task('gh', ['build'], function(done) {
-    buildBranch({ folder: 'dist' }, done);
+    buildBranch({ folder: 'dist', ignore: ['libs'] }, done);
 });
 
 gulp.task('default', ['watch']);
