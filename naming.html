@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BEM — Naming</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body class="page"><a href="https://github.com/getbem/getbem.com" title="Fork getbem.com on GitHub" class="fork"><img src="//camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" class="fork__image"/></a>
+    <div class="menu"><a href="index.html" class="menu__heading">Get BEM</a><a href="getting-started.html" class="menu__item">Getting started</a><a href="naming.html" class="menu__item">Naming</a><a href="structure.html" class="menu__item">Structure</a><a href="building.html" class="menu__item">Building</a></div>
+    <div class="grid">
+      <div class="grid__row">
+        <div class="grid__cell-xs_size_12 raw-text"><h1 id="naming">Naming</h1>
+<p>Firstly, you should start properly name your classes, like <code>block</code> for block entities, <code>block__elem</code> for block&#39;s elements, <code>block_mod_value</code> and <code>block__elem_mod_value</code> for block&#39;s mods and elem&#39;s mods, respectively.</p>
+<p>So if you have block: <code>form</code> with mods <code>theme: xmas</code> and <code>simple: true</code> and with elems <code>input</code> and <code>submit</code>, and elem <code>submit</code> have it&#39;s own mod <code>disabled: true</code> for not submitting form while it&#39;s not filled. So your html will look, like this:</p>
+<pre><code class="lang-html">&lt;form class=&quot;form form_theme_xmas form_simple_true&quot;&gt;
+    &lt;input class=&quot;form__input&quot; type=&quot;text&quot; /&gt;
+    &lt;input class=&quot;form__submit form__submit_disabled_true&quot; type=&quot;submit&quot; /&gt;
+&lt;/form&gt;
+</code></pre>
+<p>After you have some html, you have to style it with CSS. In BEM you can do it with these selectors list:</p>
+<pre><code class="lang-css">.form {}
+.form_theme_xmas {}
+.form_simple_true {}
+.form__input {}
+.form__submit {}
+.form__submit_disabled_true {}
+</code></pre>
+<p>In block selector <code>.form {}</code> you declare base styles for form. In mods selectors <code>.form_theme_xmas</code>, <code>.form_simple_true</code> you can extend or override base styles from block selector. Elem&#39;s selectors <code>.form__input</code>, <code>.form__submit</code> you can write styles for each elem. Case with mods for elem is the same as case with mods for block: in <code>.form__submit_disabled_true</code> you can extend or override <code>submit</code> styles.</p>
+<p><strong>Congratulations!</strong> You are using BEM naming now!</p>
+<h2 id="next-step">Next step</h2>
+<p>If you want to try the whole power of BEM you should teach about <a href="structure.html">BEM folder structure</a>.</p>
+
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="edit"><a href="https://github.com/floatdrop/getbem.com/edit/master/pages/naming/naming.md" data-style="mega" data-icon="octicon-pencil" class="github-button">Edit this page</a></div>
+    </div>
+  </body>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     
+    ga('create', 'UA-15345174-10', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script>
+    var _gauges = _gauges || [];
+    (function() {
+      var t   = document.createElement('script');
+      t.type  = 'text/javascript';
+      t.async = true;
+      t.id    = 'gauges-tracker';
+      t.setAttribute('data-site-id', '54070a998bfdf7145100b613');
+      t.src = '//secure.gaug.es/track.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(t, s);
+    })();
+  </script>
+  <script id="github-bjs" async defer src="https://buttons.github.io/buttons.js"></script>
+  <script src="index.js"></script>
+</html>

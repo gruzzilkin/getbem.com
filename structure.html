@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>BEM — Structure</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css">
+  </head>
+  <body class="page"><a href="https://github.com/getbem/getbem.com" title="Fork getbem.com on GitHub" class="fork"><img src="//camo.githubusercontent.com/365986a132ccd6a44c23a9169022c0b5c890c387/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f7265645f6161303030302e706e67" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" class="fork__image"/></a>
+    <div class="menu"><a href="index.html" class="menu__heading">Get BEM</a><a href="getting-started.html" class="menu__item">Getting started</a><a href="naming.html" class="menu__item">Naming</a><a href="structure.html" class="menu__item">Structure</a><a href="building.html" class="menu__item">Building</a></div>
+    <div class="grid">
+      <div class="grid__row">
+        <div class="grid__cell-xs_size_12 raw-text"><h1 id="structure">Structure</h1>
+<p>While structuring your site in BEM way is good for performance and development, storing all CSS in one file is not a good idea for growing project. If you followed <a href="/naming.html">Naming</a> section, you should have next file structure:</p>
+<pre><code>index.css
+index.html
+</code></pre><p>We proposing next way to structure you files, that will help you to adapt BEM methodology not only for CSS, but for JavaScript and even for templating!</p>
+<ol>
+<li>Group all CSS selectors from previous examples for <code>form</code> block in it own file: <code>form.css</code>. This is first step in structuring your CSS.</li>
+<li>Create a directory with block name, which files you want to group in it: <code>/form/</code> and move this file there.</li>
+</ol>
+<p>Success! You should have this file initial file structure:</p>
+<pre><code>form/
+    form.css
+index.css
+index.html
+</code></pre><p>There are some selector for blocks in <code>index.css</code> thou. Keep moving all block from <code>index.css</code> to separate files until you eliminate <code>index.css</code>:</p>
+<pre><code>form/
+    form.css
+page/
+    page.css
+index.html
+</code></pre><p>While creating blocks is pretty straight forwad, there are some rules how create elements and modifiers folders inside block folder:</p>
+<pre><code>form/
+    __input/
+        form__input.css
+    __submit/
+        _disabled/
+            form__submit_disable.css
+        form__submit.css
+page/
+    page.css
+index.css
+</code></pre><p>As you can see, all element files for block are placed into directory, that begins with <code>__</code> and same rules applies for modifiers, but prefix is shorter — <code>_</code>.</p>
+<p>Now you probably want to include all CSS files with <code>&lt;style&gt;</code> tags in <code>index.html</code> file. This is one way to do it, but we recommend you to use build system like <a href="https://github.com/gulpjs/gulp">gulpjs</a>. We even wrote a section <a href="building.html">Building</a> about it.</p>
+<h2 id="levels">Levels</h2>
+<p>This section is all about <code>Levels</code>. Idea is simple — we want a way to extend CSS/JavaScript/Templates of Block from already builded libraries of Blocks. To achieve this we will do a pretty simple thing — create a directory of blocks! Thats right — <code>Level</code> is just a directory of blocks directories.</p>
+<p>For simplicity we will create <code>Level</code> <code>blocks</code> and move all created blocks there:</p>
+<pre><code>blocks/
+    form/
+        __input/
+            form__input.css
+        __submit/
+            form__submit.css
+        __submit/
+            _disabled/
+                form__submit_disable.css
+    page/
+        page.css
+index.css
+</code></pre><p>Yay! You have your own <code>Level</code> of declaration in your project! Now we get some responsive grids in our project. We will use <a href="https://github.com/floatdrop/pure-grids">pure-grids</a> from <a href="http://purecss.io/grids/">purecss.io</a>, but ported version of them on BEM methodology. For easy installation you will need <a href="https://bower.io">bower.io</a> package manager. Follow the <a href="http://bower.io/#install-bower">instructions</a> to install bower.</p>
+<p>Installation of layer is easy and fast:</p>
+<pre><code class="lang-bash">bower install floatdrop/pure-grids
+</code></pre>
+<p>This will install <code>pure-grids</code> layer into <code>vendor</code> folder. All blocks for grids (actually one block) is in <code>vendor/pure-grids</code> directory. Now you are ready to build your project with multiple levels. Follow to the <a href="building.html">building</a> section to read about it.</p>
+
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="edit"><a href="https://github.com/floatdrop/getbem.com/edit/master/pages/structure/structure.md" data-style="mega" data-icon="octicon-pencil" class="github-button">Edit this page</a></div>
+    </div>
+  </body>
+  <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+     
+    ga('create', 'UA-15345174-10', 'auto');
+    ga('send', 'pageview');
+  </script>
+  <script>
+    var _gauges = _gauges || [];
+    (function() {
+      var t   = document.createElement('script');
+      t.type  = 'text/javascript';
+      t.async = true;
+      t.id    = 'gauges-tracker';
+      t.setAttribute('data-site-id', '54070a998bfdf7145100b613');
+      t.src = '//secure.gaug.es/track.js';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(t, s);
+    })();
+  </script>
+  <script id="github-bjs" async defer src="https://buttons.github.io/buttons.js"></script>
+  <script src="index.js"></script>
+</html>
