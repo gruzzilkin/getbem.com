@@ -1,8 +1,6 @@
 # Structure
 
-While structuring your site in BEM way is good for performance and development, storing all CSS in one file is not a good idea for growing project.
-
-If you followed [Naming](naming.html) section, you should have next file structure:
+While structuring your site in BEM way is good for performance and development, storing all CSS in one file is not a good idea for growing project. If you followed [Naming](/naming.html) section, you should have next file structure:
 
 ```
 index.css
@@ -11,9 +9,8 @@ index.html
 
 We proposing next way to structure you files, that will help you to adapt BEM methodology not only for CSS, but for JavaScript and even for templating!
 
-First, you group all CSS selectors from previous examples for `form` block in it own file: `form.css`. This is first step in structuring your CSS.
-
-Second, create a directory with block name, which files you want to group in it: `/form/` and move this file there.
+ 1. Group all CSS selectors from previous examples for `form` block in it own file: `form.css`. This is first step in structuring your CSS.
+ 1. Create a directory with block name, which files you want to group in it: `/form/` and move this file there.
 
 Success! You should have this file initial file structure:
 
@@ -55,9 +52,7 @@ Now you probably want to include all CSS files with `<style>` tags in `index.htm
 
 ## Levels
 
-This section is all about `Levels`. Idea is simple — we want a way to extend CSS/JavaScript/Templates of Block from already builded libraries of Blocks.
-
-To achieve this we will do a pretty simple thing — create a directory of blocks! Thats right — `Level` is just a directory of blocks directories.
+This section is all about `Levels`. Idea is simple — we want a way to extend CSS/JavaScript/Templates of Block from already builded libraries of Blocks. To achieve this we will do a pretty simple thing — create a directory of blocks! Thats right — `Level` is just a directory of blocks directories.
 
 For simplicity we will create `Level` `blocks` and move all created blocks there:
 
@@ -76,11 +71,7 @@ blocks/
 index.css
 ```
 
-Yay! You have your own `Level` of declaration in your project!
-
-Now we get some responsive grids in our project. We will use [pure-grids][pure-grids] from [purecss.io][purecss-grids], but ported version of them on BEM methodology.
-
-For easy installation you will need [bower.io](https://bower.io) package manager. Follow the [instructions](http://bower.io/#install-bower) to install bower.
+Yay! You have your own `Level` of declaration in your project! Now we get some responsive grids in our project. We will use [pure-grids][pure-grids] from [purecss.io][purecss-grids], but ported version of them on BEM methodology. For easy installation you will need [bower.io](https://bower.io) package manager. Follow the [instructions](http://bower.io/#install-bower) to install bower.
 
 Installation of layer is easy and fast:
 
@@ -88,10 +79,7 @@ Installation of layer is easy and fast:
 bower install floatdrop/pure-grids
 ```
 
-This will install `pure-grids` layer into `vendor` folder. All blocks for grids (actually one block) is in `vendor/pure-grids` directory.
-
-Now you are ready to build your project with multiple levels.
-Follow to the [building](building.html) section to read about it.
+This will install `pure-grids` layer into `vendor` folder. All blocks for grids (actually one block) is in `vendor/pure-grids` directory. Now you are ready to build your project with multiple levels. Follow to the [building](building.html) section to read about it.
 
 [gulp]: https://github.com/gulpjs/gulp
 [pure-grids]: https://github.com/floatdrop/pure-grids

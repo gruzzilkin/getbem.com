@@ -4,10 +4,11 @@ block title
   title BEM — Structure
 
 block head
-  link(rel="stylesheet" href="index.css")
+  link(rel="stylesheet" href="getting-started.css")
 
 block content
-  include ../includes/menu.jade
-  .container
-    include:md ./getting-started.md
+  .grid
+    .grid__row
+      .grid__cell-xs_size_12.raw-text
+        include:md ./getting-started.md
   +edit('https://github.com/floatdrop/getbem.com/edit/master/pages/getting-started/getting-started.md')

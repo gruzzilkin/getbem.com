@@ -23,9 +23,7 @@ blocks/
 index.css
 ```
 
-It is quite a lot of CSS files, if you compare to one `index.css`. Lets build them together!
-
-For building we will use [gulpjs][gulp] - it is simple streaming build system.
+It is quite a lot of CSS files, if you compare to one `index.css`. Lets build them together! For building we will use [gulpjs][gulp] - it is simple streaming build system.
 
 ```bash
 npm install gulp -g
@@ -60,9 +58,7 @@ Gulp file is ready. Time to install dependencies:
 npm i --save gulp gulp-concat
 ```
 
-Now if you will type `gulp` in command line, you will build `index.css` file in `dist` directory.
-
-Your CSS is ready!
+Now if you will type `gulp` in command line, you will build `index.css` file in `dist` directory. Your CSS is ready!
 
 ## Building JavaScript
 
@@ -116,15 +112,11 @@ gulp.task('default', function () {
 });
 ```
 
-You can build your JavaScript with bare browserify plugin, but you will have to handle path resolving, which is handled by [bem-pack](https://github.com/floatdrop/gulp-bem-pack) in this example.
-
-JavaScript is ready to go!
+You can build your JavaScript with bare browserify plugin, but you will have to handle path resolving, which is handled by [bem-pack](https://github.com/floatdrop/gulp-bem-pack) in this example. JavaScript is ready to go!
 
 ## Building Templates
 
-This is most complex part, because you can't just concatinate HTML files and template engine often will not support you in this task.
-
-We will demonstrate how to build Jade templates with help of Jade mixins to get something like custom blocks.
+This is most complex part, because you can't just concatinate HTML files and template engine often will not support you in this task. We will demonstrate how to build Jade templates with help of Jade mixins to get something like custom blocks.
 
 First we create `index.jade` file with next content:
 
@@ -162,7 +154,7 @@ gulp.task('default', function () {
 });
 ```
 
-Jade is not well suited for mixin extension, but for small projects it is a very good start. If you need more template tools, you can look at [BH](https://github.com/enb-make/bh).
+Jade is not well suited for mixin extension, but for small projects it is a very good start.
 
 [gulp]: https://github.com/gulpjs/gulp
 [gulp-plugins]: http://gulpjs.com/plugins/

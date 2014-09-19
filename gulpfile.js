@@ -6,17 +6,23 @@ var flatten = require('gulp-flatten');
 var bempack = require('gulp-bem-pack');
 
 var del = require('del');
-var browserify = require('gulp-browserify');
 var through = require('through2');
 var glue = require('glue-streams');
 var save = require('save-stream');
 var join = require('path').join;
 
+function getCssFiles(bemObject) {
+    return gulp.src(join(bemObject.path, bemObject.id + '.css'));
+}
+
 var levels = [
-        'libs/pure-base/base',
-        'libs/pure-grids/grid',
-        'blocks'
-    ],
+		'libs/bootstrap/levels/normalize',
+		'libs/bootstrap/levels/print',
+		'libs/bootstrap/levels/glyphicons',
+		'libs/bootstrap/levels/scaffolding',
+		'libs/bootstrap/levels/core-css',
+		'blocks'
+	],
     bundles = ['pages'],
     postfixCSS = function (item) {
         return join(item, '**/*.css')
